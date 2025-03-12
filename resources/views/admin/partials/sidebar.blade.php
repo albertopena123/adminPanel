@@ -3,10 +3,50 @@
         <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
     </button>
     <div>
-        <a href="index.html" class="sidebar-logo">
-            <img src="assets/images/logo.png" alt="site logo" class="light-logo">
-            <img src="assets/images/logo-light.png" alt="site logo" class="dark-logo">
-            <img src="assets/images/logo-icon.png" alt="site logo" class="logo-icon">
+        <a href="{{ route('dashboard') }}" class="sidebar-logo">
+            <!-- Logo modo claro -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" class="main-logo light-logo">
+                <g>
+                    <rect width="320" height="80" fill="white" opacity="0" />
+                    <path d="M20,20 h40 v10 h-30 v10 h25 v10 h-25 v10 h30 v10 h-40 z" fill="#2563EB" />
+                    <path d="M70,20 h10 v40 h-10 z" fill="#2563EB" />
+                    <path d="M90,20 h40 v10 h-15 v30 h-10 v-30 h-15 z" fill="#2563EB" />
+                    <path d="M140,20 h40 v10 h-30 v10 h25 v10 h-25 v10 h30 v10 h-40 z" fill="#2563EB" />
+                    <path d="M190,20 h10 v40 h-10 z" fill="#2563EB" />
+                    <path
+                        d="M210,20 c0,0 10,0 20,0 c10,0 20,10 20,20 c0,10 -10,20 -20,20 c-10,0 -20,0 -20,0 z M220,30 v20 c0,0 5,0 10,0 c5,0 10,-5 10,-10 c0,-5 -5,-10 -10,-10 c-5,0 -10,0 -10,0 z"
+                        fill="#2563EB" />
+                    <path d="M260,20 h40 v10 h-15 v30 h-10 v-30 h-15 z" fill="#2563EB" />
+                </g>
+            </svg>
+
+            <!-- Logo modo oscuro - CORREGIDO: eliminado style="display:none" -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" class="main-logo dark-logo">
+                <g> <!-- Eliminado el id="logo-dark" y style="display:none" -->
+                    <rect width="320" height="80" fill="#1E293B" opacity="0" />
+                    <path d="M20,20 h40 v10 h-30 v10 h25 v10 h-25 v10 h30 v10 h-40 z" fill="#60A5FA" />
+                    <path d="M70,20 h10 v40 h-10 z" fill="#60A5FA" />
+                    <path d="M90,20 h40 v10 h-15 v30 h-10 v-30 h-15 z" fill="#60A5FA" />
+                    <path d="M140,20 h40 v10 h-30 v10 h25 v10 h-25 v10 h30 v10 h-40 z" fill="#60A5FA" />
+                    <path d="M190,20 h10 v40 h-10 z" fill="#60A5FA" />
+                    <path
+                        d="M210,20 c0,0 10,0 20,0 c10,0 20,10 20,20 c0,10 -10,20 -20,20 c-10,0 -20,0 -20,0 z M220,30 v20 c0,0 5,0 10,0 c5,0 10,-5 10,-10 c0,-5 -5,-10 -10,-10 c-5,0 -10,0 -10,0 z"
+                        fill="#60A5FA" />
+                    <path d="M260,20 h40 v10 h-15 v30 h-10 v-30 h-15 z" fill="#60A5FA" />
+                </g>
+            </svg>
+
+            <!-- Logo icono - CORREGIDO: eliminado style="display:none" -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" class="mobile-logo">
+                <g> <!-- Eliminado el id="logo-icon" y style="display:none" -->
+                    <rect width="320" height="80" fill="white" opacity="0" />
+                    <circle cx="160" cy="40" r="35" fill="#2563EB" />
+                    <path d="M140,25 h40 v7 h-40 z" fill="white" />
+                    <path d="M140,35 h40 v7 h-40 z" fill="white" />
+                    <path d="M140,45 h40 v7 h-40 z" fill="white" />
+                    <path d="M140,55 h15 v-37 h7 v37 h-22 z" fill="white" transform="translate(0,-10)" />
+                </g>
+            </svg>
         </a>
     </div>
     <div class="sidebar-menu-area">
@@ -33,6 +73,52 @@
             </li>
 
             <li class="sidebar-menu-group-title">Módulos</li>
+
+            <!-- Agregar después de la sección de Contenido y antes de la sección de Configuración -->
+
+            @if (Auth::user()->hasPermission('view-catalogo-siga'))
+                <li class="dropdown">
+                    <a href="javascript:void(0)">
+                        <iconify-icon icon="solar:box-outline" class="menu-icon"></iconify-icon>
+                        <span>SIGA SIF</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="{{ route('siga.catalogo.index') }}"><i
+                                    class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                                Catálogo de Bienes</a>
+                        </li>
+                        @if (Auth::user()->hasPermission('update-bienes-siga'))
+                            <li>
+                                <a href="{{ route('siga.bienes.update') }}"><i
+                                        class="ri-circle-fill circle-icon text-warning-main w-auto"></i>
+                                    Actualizar Bienes</a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->hasPermission('modify-catalogo-siga'))
+                            <li>
+                                <a href="{{ route('siga.catalogo.modify') }}"><i
+                                        class="ri-circle-fill circle-icon text-success-main w-auto"></i>
+                                    Modificar Catálogo</a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->hasPermission('manage-unidades-siga'))
+                            <li>
+                                <a href="{{ route('siga.unidades.index') }}"><i
+                                        class="ri-circle-fill circle-icon text-info-main w-auto"></i>
+                                    Unidades de Medida</a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->hasPermission('admin-siga-complete'))
+                            <li>
+                                <a href="{{ route('siga.admin') }}"><i
+                                        class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
+                                    Administración SIGA</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
 
             @if (Auth::user()->hasPermission('view-users'))
                 <li class="dropdown">

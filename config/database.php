@@ -111,6 +111,18 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+        'siga_sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('SIGA_DATABASE_URL'),
+            'host' => env('SIGA_DB_HOST', '127.0.0.1'),
+            'port' => env('SIGA_DB_PORT', '1433'),
+            'database' => env('SIGA_DB_DATABASE', 'siga_1030'),
+            'username' => env('SIGA_DB_USERNAME', 'sa'),
+            'password' => env('SIGA_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
 
     ],
 
